@@ -188,12 +188,14 @@
                             withBlock:(void (^)(ABMultiValueRef multiValue, NSUInteger index))block
 {
     ABMultiValueRef multiValue = ABRecordCopyValue(recordRef, property);
-    NSUInteger count = (NSUInteger)ABMultiValueGetCount(multiValue);
-    for (NSUInteger i = 0; i < count; i++)
-    {
-        block(multiValue, i);
+    if(multiValue){
+        NSUInteger count = (NSUInteger)ABMultiValueGetCount(multiValue);
+        for (NSUInteger i = 0; i < count; i++)
+        {
+            block(multiValue, i);
+        }
+        CFRelease(multiValue);
     }
-    CFRelease(multiValue);
 }
 
 @end
